@@ -1,10 +1,10 @@
 /* Design System Acessível & Responsivo - Dra. Kelen Odontologia */
 
 :root {
-  --color-primary: #115e59;
-  --color-primary-dark: #134e4a;
-  --color-primary-light: #f0fdfa;
-  --color-primary-hover: #0f766e;
+  --color-primary: #234f3d;
+  --color-primary-dark: #173f34;
+  --color-primary-light: #eef2e7;
+  --color-primary-hover: #37694f;
   --color-accent: #0284c7;
   --color-accent-light: #f0f9ff;
   --color-whatsapp: #15803d;
@@ -12,13 +12,14 @@
   --color-text-main: #0f172a;
   --color-text-muted: #334155;
   --color-text-light: #64748b;
-  --color-bg-body: #f8fafc;
+  --color-bg-body: #f9f8f2;
   --color-bg-surface: #ffffff;
-  --color-border: #e2e8f0;
+  --color-border: #dde3d7;
   --color-border-focus: #0f766e;
   --color-badge-bg: #e6fffa;
   --color-badge-text: #065f46;
   
+  --font-display: Georgia, "Times New Roman", serif;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -30,7 +31,7 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
   
-  --max-width: 1200px;
+  --max-width: 1180px;
 }
 
 *, *::before, *::after {
@@ -380,3 +381,6 @@ p:last-child {
   color: var(--color-text-muted);
   font-weight: 600;
 }
+
+/* Shared editorial identity */
+main{flex:1;min-width:0}img{max-width:100%}.section{padding-top:80px;padding-bottom:80px}h1,h2{font-family:var(--font-display);font-weight:400;letter-spacing:-.035em}h1{font-size:clamp(34px,4vw,58px)}h2{font-size:clamp(28px,3vw,42px)}.btn{border-radius:7px;font-size:13px;min-height:50px;padding:14px 21px;gap:16px;box-shadow:none}.btn span[aria-hidden]{font-size:20px;line-height:1}.text-link{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:600;text-decoration:none;color:#315a40;line-height:1.6;padding:5px 0;border-bottom:1px solid #bfcbb5}.text-link span{font-size:19px}.text-link:hover{color:#173f34;border-color:#173f34}.badge{border-radius:4px;font-size:11px;background:#edf1e6;color:#355c42}.card{box-shadow:none;border-radius:12px}.card:hover{box-shadow:0 10px 25px #173f3409}.breadcrumbs{padding:18px 20px}.site-footer{background:#15382e!important}.footer-bottom{background:#102d25!important}.footer-title{font-size:26px!important}.footer-heading{font-size:14px!important}.footer-ethics,.footer-tagline,.footer-address{font-size:12px!important}.footer-compliance{font-size:10px!important;line-height:1.75}.footer-main{padding:50px 0!important}.footer-links a{font-size:12px!important}.footer-cro-box,.footer-hours{border-radius:8px!important}.grid-cards{gap:18px}.faq-list{gap:0!important}.faq-item{border:0!important;border-bottom:1px solid #d7dfd0!important;border-radius:0!important;background:transparent!important}.faq-question{font-size:14px!important;padding:21px 0!important}.faq-answer{padding:0 0 23px!important;border:0!important;font-size:13px!important;line-height:1.85!important}.faq-icon{font-size:22px!important}.footer-legal-links a,.footer-legal-links button{font-size:11px!important}@media(max-width:767px){.section{padding-top:48px;padding-bottom:48px}.container{padding-left:22px;padding-right:22px}.btn{font-size:12px}.footer-main{padding:40px 0!important}.footer-grid{gap:30px!important}}

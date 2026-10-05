@@ -4,23 +4,37 @@ interface Props {
   sectionTitle?: string;
 }
 
-const { faqs, sectionTitle = 'Perguntas Frequentes' } = Astro.props;
+const { faqs, sectionTitle = "Perguntas Frequentes" } = Astro.props;
 ---
 
-<section class="faq-section" aria-labelledby={sectionTitle ? "faq-heading" : undefined} aria-label={!sectionTitle ? "Perguntas frequentes" : undefined}>
-  {sectionTitle && <h2 id="faq-heading" class="faq-main-heading">{sectionTitle}</h2>}
+<section
+  class="faq-section"
+  aria-labelledby={sectionTitle ? "faq-heading" : undefined}
+  aria-label={!sectionTitle ? "Perguntas frequentes" : undefined}
+>
+  {
+    sectionTitle && (
+      <h2 id="faq-heading" class="faq-main-heading">
+        {sectionTitle}
+      </h2>
+    )
+  }
   <div class="faq-list">
-    {faqs.map((faq, idx) => (
-      <details class="faq-item" open={idx === 0}>
-        <summary class="faq-question">
-          <span>{faq.question}</span>
-          <span class="faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">
-          <p>{faq.answer}</p>
-        </div>
-      </details>
-    ))}
+    {
+      faqs.map((faq, idx) => (
+        <details class="faq-item" open={idx === 0}>
+          <summary class="faq-question">
+            <span>{faq.question}</span>
+            <span class="faq-icon" aria-hidden="true">
+              +
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))
+    }
   </div>
 </section>
 

@@ -1,0 +1,290 @@
+---
+import { clinicConfig } from '../config/clinic.config';
+---
+
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div class="footer-grid">
+      <!-- Coluna 1: Identificação Profissional -->
+      <div class="footer-col">
+        <h2 class="footer-title">{clinicConfig.name}</h2>
+        <p class="footer-tagline">Cirurgiã-Dentista • Clínica Geral, Ortodontia, Odontologia Estética e Cirurgia Bucal</p>
+        <div class="footer-cro-box">
+          <span class="cro-label">Responsável Técnica:</span>
+          <strong>{clinicConfig.technicalResponsible}</strong>
+        </div>
+        <p class="footer-ethics">
+          Atendimento humanizado pautado pela ética, biossegurança e respeito ao paciente na Zona Leste de São Paulo.
+        </p>
+      </div>
+
+      <!-- Coluna 2: Navegação & Tratamentos -->
+      <div class="footer-col">
+        <h3 class="footer-heading">Tratamentos Oferecidos</h3>
+        <ul class="footer-links" role="list">
+          {clinicConfig.treatments.map((t) => (
+            <li>
+              <a href={`/tratamentos/${t.slug}`}>{t.name}</a>
+            </li>
+          ))}
+        </ul>
+        <h3 class="footer-heading" style="margin-top: 1.5rem;">Conteúdos & Dúvidas</h3>
+        <ul class="footer-links" role="list">
+          <li><a href="/conteudos">Artigos e Orientações de Saúde Bucal</a></li>
+          <li><a href="/a-clinica">Estrutura e Primeiro Atendimento</a></li>
+          <li><a href="/equipe">Conheça a Dentista Responsável</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Endereço & Horários -->
+      <div class="footer-col">
+        <h3 class="footer-heading">Localização & Contato</h3>
+        <address class="footer-address">
+          <p>
+            <strong>Endereço:</strong><br />
+            {clinicConfig.address.street}<br />
+            {clinicConfig.address.neighborhood}<br />
+            São Paulo - SP • CEP: {clinicConfig.address.postalCode}
+          </p>
+          <p class="footer-landmark">
+            <em>Referência:</em> {clinicConfig.address.landmarks}
+          </p>
+          <p>
+            <strong>Telefones para agendamento:</strong><br />
+            <a href={`tel:${clinicConfig.contact.phonePrimary}`}>{clinicConfig.contact.phonePrimaryFormatted}</a> / 
+            <a href={`tel:${clinicConfig.contact.phoneSecondary}`}>{clinicConfig.contact.phoneSecondaryFormatted}</a><br />
+            <strong>WhatsApp:</strong> <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer">{clinicConfig.contact.whatsappFormatted}</a>
+          </p>
+        </address>
+
+        <div class="footer-hours">
+          <h4 class="hours-title">Horário de Atendimento Confirmado:</h4>
+          <p>{clinicConfig.hours.displayWeekdays}</p>
+          <p>{clinicConfig.hours.displaySaturday}</p>
+          <p class="hours-closed">{clinicConfig.hours.displaySunday}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de Ética & Rodapé Legal -->
+  <div class="footer-bottom">
+    <div class="container footer-bottom-content">
+      <div class="footer-compliance">
+        <p>
+          <strong>Aviso Ético e Legal (CFO / CROSP):</strong> As informações deste site têm finalidade exclusivamente informativa e educativa, em conformidade com as resoluções do Conselho Federal de Odontologia. Nenhuma informação contida substitui a consulta odontológica presencial com anamnese e exame clínico individualizado. Não são garantidos resultados específicos e os tratamentos variam conforme a biologia de cada indivíduo.
+        </p>
+      </div>
+      <div class="footer-legal-links">
+        <span>© {new Date().getFullYear()} {clinicConfig.name} - Todos os direitos reservados.</span>
+        <div class="legal-anchors">
+          <a href="/politica-de-privacidade">Política de Privacidade & Cookies (LGPD)</a>
+          <button id="manage-cookies-btn" type="button" class="cookie-prefs-link">Preferências de Cookies</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    margin-top: auto;
+    border-top: 4px solid var(--color-primary);
+  }
+
+  .footer-main {
+    padding-top: 3.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.2fr 1fr 1.2fr;
+    }
+  }
+
+  .footer-title {
+    color: #ffffff;
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .footer-cro-box {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .cro-label {
+    font-size: 0.8rem;
+    color: #5eead4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-cro-box strong {
+    color: #ffffff;
+    font-size: 0.95rem;
+  }
+
+  .footer-ethics {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .footer-heading {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(13, 148, 136, 0.4);
+    padding-bottom: 0.4rem;
+    display: inline-block;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.15s ease, padding-left 0.15s ease;
+  }
+
+  .footer-links a:hover {
+    color: #5eead4;
+    padding-left: 0.35rem;
+  }
+
+  .footer-address {
+    font-style: normal;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-address a {
+    color: #5eead4;
+    text-decoration: none;
+  }
+
+  .footer-address a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-landmark {
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  .footer-hours {
+    margin-top: 1.25rem;
+    background-color: rgba(255, 255, 255, 0.04);
+    padding: 0.85rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .hours-title {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+  }
+
+  .footer-hours p {
+    margin-bottom: 0.2rem;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+  }
+
+  .hours-closed {
+    color: #fca5a5 !important;
+  }
+
+  .footer-bottom {
+    background-color: #020617;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem 0;
+    font-size: 0.825rem;
+    color: #94a3b8;
+  }
+
+  .footer-compliance {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    line-height: 1.6;
+  }
+
+  .footer-compliance strong {
+    color: #e2e8f0;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 768px) {
+    .footer-legal-links {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .legal-anchors {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .legal-anchors a,
+  .cookie-prefs-link {
+    color: #cbd5e1;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.825rem;
+    font-family: inherit;
+    padding: 0;
+  }
+
+  .legal-anchors a:hover,
+  .cookie-prefs-link:hover {
+    color: #5eead4;
+    text-decoration: underline;
+  }
+</style>

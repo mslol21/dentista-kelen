@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /contato/confirmacao
+
+Sitemap: https://drakelenodonto.com.br/sitemap-index.xml

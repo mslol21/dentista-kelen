@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { clinicConfig } from '../../config/clinic.config';
+
+const breadcrumbs = [
+  { name: 'Conteúdos Educativos', url: '/conteudos' },
+];
+---
+
+<Layout
+  title="Conteúdos Educativos de Saúde Bucal | Dra. Kelen Odontologia"
+  description="Artigos, dicas de prevenção e orientações clínicas revisadas pela Dra. Kelen (CROSP 118603) em Guaianases. Informação odontológica com responsabilidade."
+  canonicalPath="/conteudos"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="container section">
+    <div class="page-header">
+      <span class="badge">Educação em Saúde Bucal</span>
+      <h1>Orientações e Artigos Educativos</h1>
+      <p class="page-lead">
+        Informações claras, práticas e fundamentadas na literatura científica para ajudar você e sua família a manterem o sorriso sempre saudável.
+      </p>
+    </div>
+
+    <div class="articles-grid">
+      {clinicConfig.educationalArticles.map((art) => (
+        <article class="card article-card">
+          <div class="article-meta">
+            <span>Revisão Clínica: <strong>{art.author}</strong> ({art.cro})</span>
+            <span>•</span>
+            <time datetime={art.reviewDate}>Atualizado em {new Date(art.reviewDate).toLocaleDateString('pt-BR')}</time>
+          </div>
+
+          <h2 class="article-title">
+            <a href={`/conteudos/${art.slug}`}>{art.title}</a>
+          </h2>
+
+          <p class="article-summary">{art.summary}</p>
+
+          <div class="article-footer">
+            <span class="reading-time">⏱ Leitura de {art.readingTime}</span>
+            <a href={`/conteudos/${art.slug}`} class="btn btn-outline article-read-btn">
+              Ler artigo completo
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="audit-notice" style="margin-top: 3rem;">
+      <strong>Diretriz Editorial:</strong> Todos os textos desta seção são revisados pela responsável técnica, <strong>{clinicConfig.name}</strong> ({clinicConfig.cro}). Os conteúdos possuem objetivo exclusivamente educativo e preventivo, não substituindo o exame clínico presencial.
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-header {
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .articles-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    padding: 1.75rem;
+    height: 100%;
+  }
+
+  .article-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .article-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .article-title a {
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .article-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .article-summary {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .article-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  .reading-time {
+    font-size: 0.825rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
+
+  .article-read-btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+</style>

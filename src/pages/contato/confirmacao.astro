@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { clinicConfig } from '../../config/clinic.config';
+
+const breadcrumbs = [
+  { name: 'Localização & Contato', url: '/contato' },
+  { name: 'Solicitação Enviada', url: '/contato/confirmacao' },
+];
+---
+
+<Layout
+  title="Solicitação de Contato Recebida | Dra. Kelen Odontologia"
+  description="Sua solicitação de contato foi enviada com sucesso. A equipe da Dra. Kelen retornará durante o horário de atendimento."
+  canonicalPath="/contato/confirmacao"
+  breadcrumbs={breadcrumbs}
+  noindex={true}
+>
+  <div class="container section">
+    <div class="confirmation-wrapper card">
+      <div class="success-icon" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+
+      <h1>Solicitação de Contato Enviada com Sucesso</h1>
+      
+      <p class="confirmation-message" id="lead-name-text">
+        Recebemos seus dados de contato. Nossa equipe entrará em contato por telefone ou WhatsApp durante o horário comercial.
+      </p>
+
+      <div class="instructions-box">
+        <h3>Como funciona o retorno?</h3>
+        <ul>
+          <li>
+            <strong>Horário comercial de resposta:</strong> De segunda a sexta das 09h às 18h30 e sábados das 09h às 17h.
+          </li>
+          <li>
+            <strong>Verificação do número:</strong> Entraremos em contato prioritariamente pelo telefone ou WhatsApp informado.
+          </li>
+          <li>
+            <strong>Importante:</strong> Esta mensagem confirma o recebimento do seu pedido de contato. A confirmação oficial de data e horário para a avaliação é combinada diretamente com a recepcionista.
+          </li>
+        </ul>
+      </div>
+
+      <div class="urgent-notice">
+        <p><strong>Caso seja um caso de dor intensa ou necessidade urgente:</strong></p>
+        <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          Conversar Diretamente no WhatsApp
+        </a>
+      </div>
+
+      <div class="back-home-wrap">
+        <a href="/" class="btn btn-secondary">Voltar à Página Inicial</a>
+        <a href="/tratamentos" class="btn btn-outline">Conhecer os Tratamentos</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    try {
+      const stored = sessionStorage.getItem('clinic_contact_lead');
+      if (stored) {
+        const data = JSON.parse(stored);
+        const nameText = document.getElementById('lead-name-text');
+        if (nameText && data.nome) {
+          nameText.innerHTML = `Olá, <strong>${data.nome}</strong>! Recebemos seus dados de contato. Nossa equipe retornará a mensagem no melhor momento durante o horário de atendimento.`;
+        }
+      }
+    } catch (e) {}
+  })();
+</script>
+
+<style>
+  .confirmation-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #ecfdf5;
+    color: #10b981;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 3px solid #a7f3d0;
+  }
+
+  .confirmation-wrapper h1 {
+    font-size: 1.8rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+  }
+
+  .confirmation-message {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .instructions-box {
+    background-color: var(--color-bg-body);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .instructions-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary-dark);
+  }
+
+  .instructions-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .urgent-notice {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .urgent-notice p {
+    color: #14532d;
+    margin-bottom: 0.85rem;
+  }
+
+  .back-home-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+</style>

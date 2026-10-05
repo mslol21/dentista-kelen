@@ -1,0 +1,205 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBottomBar from '../components/MobileBottomBar.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import { clinicConfig } from '../config/clinic.config';
+
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogType?: string;
+  ogImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  articleData?: {
+    headline: string;
+    datePublished: string;
+    dateModified: string;
+    author: string;
+  };
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '',
+  ogType = 'website',
+  ogImage = clinicConfig.images.facadeReal,
+  breadcrumbs = [],
+  articleData,
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, clinicConfig.canonicalBase).href;
+const fullOgImageUrl = new URL(ogImage, clinicConfig.canonicalBase).href;
+
+// JSON-LD Principal: Schema Dentist (Sem avaliações artificiais)
+const dentistSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dentist',
+  name: clinicConfig.name,
+  description: description,
+  url: clinicConfig.siteUrl,
+  telephone: `+55${clinicConfig.contact.phonePrimary}`,
+  image: fullOgImageUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: clinicConfig.address.street,
+    addressLocality: 'São Paulo',
+    addressRegion: 'SP',
+    postalCode: clinicConfig.address.postalCode,
+    addressCountry: 'BR',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: clinicConfig.address.coordinates.latitude,
+    longitude: clinicConfig.address.coordinates.longitude,
+  },
+  openingHoursSpecification: clinicConfig.hours.openingHoursSpecification.map((spec) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: spec.dayOfWeek,
+    opens: spec.opens,
+    closes: spec.closes,
+  })),
+  areaServed: [
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Guaianases, São Paulo - SP',
+    },
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Zona Leste de São Paulo',
+    },
+  ],
+  priceRange: '$$',
+};
+
+// JSON-LD Breadcrumbs
+const breadcrumbsSchema = breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: clinicConfig.canonicalBase,
+    },
+    ...breadcrumbs.map((b, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 2,
+      name: b.name,
+      item: new URL(b.url, clinicConfig.canonicalBase).href,
+    })),
+  ],
+} : null;
+
+// JSON-LD Article (Para conteúdos educativos de saúde)
+const articleSchema = articleData ? {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: articleData.headline,
+  description: description,
+  image: fullOgImageUrl,
+  datePublished: articleData.datePublished,
+  dateModified: articleData.dateModified,
+  author: {
+    '@type': 'Person',
+    name: articleData.author,
+    jobTitle: 'Cirurgiã-Dentista (CROSP 118603)',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: clinicConfig.name,
+    url: clinicConfig.siteUrl,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+} : null;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#115e59" />
+
+    <!-- SEO Básico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:site_name" content={clinicConfig.name} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImageUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImageUrl} />
+
+    <!-- Favicon semântico -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23115e59'><path d='M12 2C8.5 2 6 4.5 6 8c0 3.5 1.5 8 3 11 1 2 2 3 3 3s2-1 3-3c1.5-3 3-7.5 3-11 0-3.5-2.5-6-6-6z'/></svg>" />
+
+    <!-- Dados Estruturados JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(dentistSchema)} />
+    {breadcrumbsSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbsSchema)} />
+    )}
+    {articleSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    )}
+  </head>
+  <body>
+    <!-- Acessibilidade: Atalho direto para o conteúdo -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <Header currentPath={canonicalPath} />
+
+    {breadcrumbs.length > 0 && (
+      <nav class="container breadcrumbs" aria-label="Você está em">
+        <ol>
+          <li><a href="/">Início</a></li>
+          {breadcrumbs.map((b, idx) => {
+            const isLast = idx === breadcrumbs.length - 1;
+            return (
+              <li>
+                {isLast ? (
+                  <span aria-current="page">{b.name}</span>
+                ) : (
+                  <a href={b.url}>{b.name}</a>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    )}
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+    <MobileBottomBar />
+    <CookieBanner />
+  </body>
+</html>

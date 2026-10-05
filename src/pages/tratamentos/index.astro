@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentCard from '../../components/TreatmentCard.astro';
+import { clinicConfig } from '../../config/clinic.config';
+
+const breadcrumbs = [
+  { name: 'Tratamentos', url: '/tratamentos' },
+];
+---
+
+<Layout
+  title="Tratamentos Odontológicos em Guaianases | Dra. Kelen Odontologia"
+  description="Conheça os tratamentos oferecidos pela Dra. Kelen em Guaianases: Clínica Geral, Ortodontia, Odontologia Estética e Cirurgia Dentista com CROSP 118603."
+  canonicalPath="/tratamentos"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="container section">
+    <div class="page-header">
+      <span class="badge">Especialidades & Procedimentos</span>
+      <h1>Tratamentos Odontológicos Efetivamente Oferecidos</h1>
+      <p class="page-lead">
+        Trabalhamos exclusivamente com procedimentos fundamentados na literatura científica, planejamento individualizado e absoluto respeito às indicações biológicas de cada paciente.
+      </p>
+    </div>
+
+    <div class="grid-cards">
+      {clinicConfig.treatments.map((t) => (
+        <TreatmentCard treatment={t} />
+      ))}
+    </div>
+
+    <!-- Seção de Esclarecimento sobre Avaliação Prévia -->
+    <div class="evaluation-notice card" style="margin-top: 3.5rem;">
+      <div class="notice-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </div>
+      <div class="notice-text">
+        <h3>Por que a avaliação prévia é indispensável antes de qualquer tratamento?</h3>
+        <p>
+          Em odontologia, cada organismo responde de forma única. Fatores como saúde óssea, hábitos de mastigação, respiração, medicamentos em uso e histórico sistêmico influenciam diretamente no resultado e na segurança do procedimento.
+        </p>
+        <p>
+          Por essa razão e por determinação do Código de Ética Odontológica (CFO), orçamentos e diagnósticos não são fornecidos por telefone ou redes sociais sem o devido exame presencial.
+        </p>
+        <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="margin-top: 0.5rem;">
+          Agendar Minha Avaliação pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-header {
+    max-width: 820px;
+    margin-bottom: 3rem;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+  }
+
+  .evaluation-notice {
+    display: flex;
+    gap: 1.5rem;
+    background-color: var(--color-primary-light);
+    border-color: rgba(13, 148, 136, 0.3);
+    padding: 2rem;
+    align-items: flex-start;
+  }
+
+  .notice-icon {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .notice-text h3 {
+    color: var(--color-primary-dark);
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .notice-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .evaluation-notice {
+      flex-direction: column;
+    }
+  }
+</style>

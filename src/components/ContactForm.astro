@@ -1,0 +1,246 @@
+---
+import { clinicConfig } from '../config/clinic.config';
+---
+
+<div class="contact-form-card card">
+  <div class="form-header">
+    <h3 class="form-title">Solicitar Retorno de Contato</h3>
+    <p class="form-subtitle">
+      Preencha seus dados básicos para que nossa equipe entre em contato em horário comercial.
+    </p>
+    <div class="form-privacy-note">
+      <small>
+        🔒 <strong>Privacidade:</strong> Coletamos apenas nome e telefone para retorno. Não informe dados de saúde, histórico clínico ou documentos nesta etapa.
+      </small>
+    </div>
+  </div>
+
+  <form id="clinic-contact-form" action="/contato/confirmacao" method="GET" class="styled-form" novalidate>
+    <!-- Campo honeypot anti-spam (invisível para humanos) -->
+    <div class="honeypot-field" aria-hidden="true" style="display: none;">
+      <label for="form_website_hp">Não preencha este campo</label>
+      <input type="text" id="form_website_hp" name="hp_field" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Nome Completo -->
+    <div class="form-group">
+      <label for="contact-name" class="form-label">
+        Nome completo <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        type="text"
+        id="contact-name"
+        name="nome"
+        class="form-input"
+        placeholder="Ex.: Maria da Silva"
+        required
+        autocomplete="name"
+        minlength="3"
+        aria-describedby="name-error"
+      />
+      <div id="name-error" class="form-error" role="alert" style="display: none;">Por favor, informe seu nome completo (mínimo de 3 caracteres).</div>
+    </div>
+
+    <!-- Telefone / WhatsApp -->
+    <div class="form-group">
+      <label for="contact-phone" class="form-label">
+        Telefone / WhatsApp com DDD <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        type="tel"
+        id="contact-phone"
+        name="telefone"
+        class="form-input"
+        placeholder="(11) 90000-0000"
+        required
+        autocomplete="tel"
+        aria-describedby="phone-error"
+      />
+      <div id="phone-error" class="form-error" role="alert" style="display: none;">Por favor, digite um telefone ou WhatsApp válido com DDD.</div>
+      <p class="form-helper">Utilizaremos este número exclusivamente para responder à sua solicitação.</p>
+    </div>
+
+    <!-- Período de preferência para contato -->
+    <div class="form-group">
+      <label for="contact-period" class="form-label">
+        Melhor período para receber nosso retorno
+      </label>
+      <select id="contact-period" name="periodo" class="form-select">
+        <option value="qualquer">Qualquer horário comercial (09h às 18h)</option>
+        <option value="manha">Manhã (09h às 12h)</option>
+        <option value="tarde">Tarde (13h às 18h)</option>
+      </select>
+    </div>
+
+    <!-- Dúvida ou Mensagem Breve -->
+    <div class="form-group">
+      <label for="contact-message" class="form-label">
+        Dúvida ou assunto de interesse (opcional)
+      </label>
+      <textarea
+        id="contact-message"
+        name="mensagem"
+        class="form-textarea"
+        placeholder="Ex.: Gostaria de saber mais sobre avaliação ortodôntica ou limpeza preventiva..."
+        maxlength="500"
+      ></textarea>
+      <p class="form-helper">Máximo de 500 caracteres. Não é necessário detalhar diagnósticos.</p>
+    </div>
+
+    <!-- Feedback de envio -->
+    <div id="form-general-error" class="audit-notice" style="display: none; background-color: #fef2f2; border-color: #fecaca; color: #991b1b;">
+      Verifique os campos obrigatórios destacados acima antes de enviar.
+    </div>
+
+    <!-- Botão de Envio -->
+    <button type="submit" id="btn-submit-form" class="btn btn-primary form-submit-btn">
+      <span>Enviar Solicitação de Contato</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </form>
+</div>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('clinic-contact-form');
+    if (!form) return;
+
+    const nameInput = document.getElementById('contact-name');
+    const phoneInput = document.getElementById('contact-phone');
+    const nameError = document.getElementById('name-error');
+    const phoneError = document.getElementById('phone-error');
+    const generalError = document.getElementById('form-general-error');
+    const hpField = document.getElementById('form_website_hp');
+
+    // Máscara simplificada de telefone
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function (e) {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.substring(0, 11);
+        if (v.length > 6) {
+          e.target.value = `(${v.substring(0, 2)}) ${v.substring(2, 7)}-${v.substring(7)}`;
+        } else if (v.length > 2) {
+          e.target.value = `(${v.substring(0, 2)}) ${v.substring(2)}`;
+        } else if (v.length > 0) {
+          e.target.value = `(${v}`;
+        }
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Verificação Honeypot anti-spam
+      if (hpField && hpField.value.trim() !== '') {
+        console.warn('Submissão bloqueada por filtro de segurança.');
+        return;
+      }
+
+      let isValid = true;
+
+      // Validação de Nome
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      if (nameVal.length < 3) {
+        if (nameError) nameError.style.display = 'block';
+        if (nameInput) nameInput.classList.add('input-invalid');
+        isValid = false;
+      } else {
+        if (nameError) nameError.style.display = 'none';
+        if (nameInput) nameInput.classList.remove('input-invalid');
+      }
+
+      // Validação de Telefone (pelo menos 10 dígitos numéricos)
+      const phoneDigits = phoneInput ? phoneInput.value.replace(/\D/g, '') : '';
+      if (phoneDigits.length < 10) {
+        if (phoneError) phoneError.style.display = 'block';
+        if (phoneInput) phoneInput.classList.add('input-invalid');
+        isValid = false;
+      } else {
+        if (phoneError) phoneError.style.display = 'none';
+        if (phoneInput) phoneInput.classList.remove('input-invalid');
+      }
+
+      if (!isValid) {
+        if (generalError) generalError.style.display = 'block';
+        return;
+      }
+
+      if (generalError) generalError.style.display = 'none';
+
+      // Registro de intenção segura de contato em sessionStorage para a página de confirmação
+      try {
+        sessionStorage.setItem('clinic_contact_lead', JSON.stringify({
+          nome: nameVal,
+          periodo: document.getElementById('contact-period')?.value || 'qualquer',
+          submittedAt: new Date().toISOString()
+        }));
+      } catch (err) {}
+
+      // Disparo de telemetria neutra (SEM PII)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'clinic_contact_form_success',
+        event_category: 'lead_generation',
+        non_interaction: false
+      });
+
+      // Redireciona para a página funcional de confirmação
+      window.location.href = `/contato/confirmacao?nome=${encodeURIComponent(nameVal)}`;
+    });
+  })();
+</script>
+
+<style>
+  .contact-form-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+
+  .form-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.35rem;
+    color: var(--color-text-main);
+    margin-bottom: 0.35rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .form-privacy-note {
+    background-color: var(--color-bg-body);
+    border: 1px solid var(--color-border);
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+  }
+
+  .form-privacy-note strong {
+    color: var(--color-primary-dark);
+  }
+
+  .form-error {
+    color: #dc2626;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.35rem;
+  }
+
+  .input-invalid {
+    border-color: #dc2626 !important;
+    background-color: #fffaf0;
+  }
+
+  .form-submit-btn {
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+  }
+</style>

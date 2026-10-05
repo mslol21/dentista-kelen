@@ -1,0 +1,249 @@
+---
+// Componente de Gestão de Privacidade e Cookies (LGPD)
+---
+
+<div id="cookie-consent-container" class="cookie-banner-wrapper" style="display: none;" role="region" aria-label="Gestão de Privacidade e Cookies">
+  <div class="container">
+    <div class="cookie-box">
+      <div class="cookie-content">
+        <h3 class="cookie-title">Sua privacidade e segurança de dados</h3>
+        <p class="cookie-desc">
+          Utilizamos cookies estritamente necessários para o funcionamento deste site e navegação segura. Cookies analíticos adicionais para entender o volume de visitas só são ativados com a sua autorização. <strong>Não coletamos nem enviamos dados de saúde ou diagnósticos a plataformas de publicidade.</strong>
+        </p>
+      </div>
+      
+      <!-- Detalhes de Personalização (opcional) -->
+      <details id="cookie-details" class="cookie-details">
+        <summary class="cookie-details-toggle">Personalizar preferências de cookies</summary>
+        <div class="cookie-options">
+          <label class="cookie-option-label">
+            <input type="checkbox" checked disabled aria-label="Cookies Essenciais (Obrigatórios)" />
+            <span>
+              <strong>Essenciais (Sempre ativos):</strong> Garantem segurança, carregamento e memorização das suas escolhas.
+            </span>
+          </label>
+          <label class="cookie-option-label">
+            <input type="checkbox" id="consent-analytics" />
+            <span>
+              <strong>Estatísticos / Métricas anônimas:</strong> Auxiliam a mensurar acessos de forma agregada, sem identificar o paciente.
+            </span>
+          </label>
+        </div>
+      </details>
+
+      <div class="cookie-actions">
+        <button id="btn-cookie-reject" type="button" class="btn btn-secondary cookie-btn">
+          Apenas Essenciais (Rejeitar outros)
+        </button>
+        <button id="btn-cookie-save-custom" type="button" class="btn btn-outline cookie-btn">
+          Salvar Minha Escolha
+        </button>
+        <button id="btn-cookie-accept" type="button" class="btn btn-primary cookie-btn">
+          Aceitar Todos
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const STORAGE_KEY = 'odonto_kelen_cookie_consent_v1';
+    const banner = document.getElementById('cookie-consent-container');
+    const btnAccept = document.getElementById('btn-cookie-accept');
+    const btnReject = document.getElementById('btn-cookie-reject');
+    const btnSaveCustom = document.getElementById('btn-cookie-save-custom');
+    const chkAnalytics = document.getElementById('consent-analytics');
+    const manageBtn = document.getElementById('manage-cookies-btn');
+
+    function getConsent() {
+      try {
+        const val = localStorage.getItem(STORAGE_KEY);
+        return val ? JSON.parse(val) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveConsent(preferences) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          ...preferences,
+          timestamp: new Date().toISOString()
+        }));
+      } catch (e) {}
+      applyPreferences(preferences);
+      if (banner) banner.style.display = 'none';
+    }
+
+    function applyPreferences(prefs) {
+      window.odontoConsent = prefs;
+      if (prefs.analytics) {
+        // Inicializar rastreadores autorizados sem PII
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'consent_updated',
+          analytics_storage: 'granted',
+          ad_storage: 'denied' // Mantido desativado por padrão ético
+        });
+      }
+    }
+
+    const currentConsent = getConsent();
+    if (!currentConsent) {
+      if (banner) banner.style.display = 'block';
+    } else {
+      applyPreferences(currentConsent);
+    }
+
+    if (btnAccept) {
+      btnAccept.addEventListener('click', function () {
+        saveConsent({ essential: true, analytics: true });
+      });
+    }
+
+    if (btnReject) {
+      btnReject.addEventListener('click', function () {
+        saveConsent({ essential: true, analytics: false });
+      });
+    }
+
+    if (btnSaveCustom) {
+      btnSaveCustom.addEventListener('click', function () {
+        const analyticsAllowed = chkAnalytics ? chkAnalytics.checked : false;
+        saveConsent({ essential: true, analytics: analyticsAllowed });
+      });
+    }
+
+    if (manageBtn) {
+      manageBtn.addEventListener('click', function () {
+        if (banner) {
+          banner.style.display = 'block';
+          banner.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Telemetria neutra de conversão (sem envio de dados sensíveis ou de saúde)
+    document.addEventListener('click', function (e) {
+      const target = e.target.closest('a');
+      if (!target) return;
+      const href = target.getAttribute('href') || '';
+
+      if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+        trackGenericEvent('whatsapp_click');
+      } else if (href.startsWith('tel:')) {
+        trackGenericEvent('phone_call_click');
+      } else if (href.includes('maps.google') || href.includes('goo.gl/maps')) {
+        trackGenericEvent('directions_click');
+      }
+    });
+
+    function trackGenericEvent(eventName) {
+      window.dataLayer = window.dataLayer || [];
+      // APENAS evento genérico sem NENHUM dado pessoal, telefone ou saúde
+      window.dataLayer.push({
+        event: eventName,
+        event_category: 'engagement_conversion',
+        non_interaction: false
+      });
+    }
+  })();
+</script>
+
+<style>
+  .cookie-banner-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #0f172a;
+    border-top: 3px solid var(--color-primary);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    padding: 1.5rem 0;
+    color: #f8fafc;
+  }
+
+  .cookie-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .cookie-title {
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: 0.4rem;
+  }
+
+  .cookie-desc {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .cookie-desc strong {
+    color: #5eead4;
+  }
+
+  .cookie-details {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+  }
+
+  .cookie-details-toggle {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #5eead4;
+  }
+
+  .cookie-options {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .cookie-option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .cookie-option-label input {
+    margin-top: 0.2rem;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+  }
+
+  .cookie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .cookie-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.1rem;
+    min-height: 44px;
+  }
+
+  @media (max-width: 640px) {
+    .cookie-actions {
+      flex-direction: column;
+    }
+    .cookie-btn {
+      width: 100%;
+    }
+  }
+</style>

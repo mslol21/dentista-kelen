@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinicConfig } from '../config/clinic.config';
+
+const breadcrumbs = [
+  { name: 'Política de Privacidade & Cookies', url: '/politica-de-privacidade' },
+];
+---
+
+<Layout
+  title="Política de Privacidade & Cookies (LGPD) | Dra. Kelen Odontologia"
+  description="Conheça a política de proteção de dados pessoais, sigilo odontológico e gestão de cookies da clínica da Dra. Kelen em conformidade com a LGPD e o CFO."
+  canonicalPath="/politica-de-privacidade"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="container section">
+    <div class="privacy-container card">
+      <span class="badge">Conformidade LGPD & Sigilo Profissional</span>
+      <h1>Política de Privacidade e Gestão de Cookies</h1>
+      <p class="privacy-date">Última atualização: 05 de Outubro de 2026</p>
+
+      <section class="privacy-section">
+        <h2>1. Identificação do Controlador e Responsável Técnico</h2>
+        <p>
+          Este site é mantido e operado sob responsabilidade técnica de <strong>{clinicConfig.name}</strong>, Cirurgiã-Dentista inscrita no Conselho Regional de Odontologia de São Paulo sob o número <strong>{clinicConfig.cro}</strong>, com atuação profissional localizada na <strong>{clinicConfig.address.fullFormatted}</strong>.
+        </p>
+      </section>
+
+      <section class="privacy-section">
+        <h2>2. Princípio da Minimização e Não Coleta de Dados de Saúde na Web</h2>
+        <p>
+          Em estrita conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD) e com o Código de Ética Odontológica (CFO):
+        </p>
+        <ul>
+          <li>
+            <strong>Não solicitamos diagnósticos, sintomas íntimos, histórico médico ou documentos pessoais (como CPF ou RG) através de formulários abertos no site.</strong>
+          </li>
+          <li>
+            O formulário de contato coleta estritamente o <strong>Nome</strong> e o <strong>Telefone/WhatsApp</strong>, cuja única finalidade é permitir o retorno cordial para esclarecimento de dúvidas e solicitação de atendimento presencial.
+          </li>
+          <li>
+            Toda e qualquer anamnese clínica, histórico de saúde e prontuário odontológico são colhidos presencialmente no consultório físico, com sigilo médico-odontológico garantido por lei.
+          </li>
+        </ul>
+      </section>
+
+      <section class="privacy-section">
+        <h2>3. Uso de Cookies e Tecnologias de Rastreamento</h2>
+        <p>
+          Utilizamos cookies classificados nas seguintes categorias:
+        </p>
+        <div class="cookie-types-grid">
+          <div class="cookie-type-box">
+            <h3>Cookies Estritamente Necessários</h3>
+            <p>
+              Essenciais para o funcionamento estável do site, navegação acessível e gravação da sua própria preferência de privacidade. Não podem ser desativados nos nossos sistemas.
+            </p>
+          </div>
+          <div class="cookie-type-box">
+            <h3>Cookies de Desempenho e Estatística (Analíticos)</h3>
+            <p>
+              Permitem contar visitas e fontes de tráfego de maneira anônima e agregada para melhorar a velocidade e acessibilidade das páginas. Só são ativados com a sua expressa permissão através do banner de cookies.
+            </p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem;">
+          <strong>Importante sobre Redes de Anúncios e Meta Pixel:</strong> Por diretriz de conformidade médica e respeito aos dados dos nossos pacientes, <em>o Meta Pixel e tags de rastreamento comportamental de saúde permanecem desativados por padrão</em>. Nenhum dado digitado no formulário ou sobre tratamentos clínicos é transmitido a terceiros para fins de perfilamento publicitário.
+        </p>
+      </section>
+
+      <section class="privacy-section">
+        <h2>4. Seus Direitos como Titular de Dados Pessoais</h2>
+        <p>
+          Você tem total controle sobre seus dados pessoais conforme o Artigo 18 da LGPD, podendo solicitar:
+        </p>
+        <ul>
+          <li>Confirmação da existência de tratamento dos dados que você nos enviou via formulário;</li>
+          <li>Acesso e correção de dados incompletos ou inexatos;</li>
+          <li>Eliminação dos dados de contato do nosso registro após o atendimento inicial;</li>
+          <li>Revogação do consentimento concedido anteriormente para cookies.</li>
+        </ul>
+      </section>
+
+      <section class="privacy-section">
+        <h2>5. Como Alterar Suas Escolhas de Cookies a Qualquer Momento</h2>
+        <p>
+          Você pode redefinir suas preferências de cookies a qualquer momento clicando no botão abaixo ou no link correspondente no rodapé de qualquer página deste site:
+        </p>
+        <button id="reopen-cookie-banner-btn" type="button" class="btn btn-primary" style="margin-top: 0.5rem;">
+          Gerenciar Minhas Preferências de Cookies
+        </button>
+      </section>
+
+      <section class="privacy-section">
+        <h2>6. Contato com o Consultório</h2>
+        <p>
+          Para exercer seus direitos de privacidade ou esclarecer dúvidas sobre esta política, entre em contato através dos nossos canais oficiais:
+        </p>
+        <p>
+          <strong>Telefone:</strong> {clinicConfig.contact.phonePrimaryFormatted}<br />
+          <strong>WhatsApp:</strong> {clinicConfig.contact.whatsappFormatted}<br />
+          <strong>Endereço:</strong> {clinicConfig.address.fullFormatted}
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<script is:inline>
+  document.getElementById('reopen-cookie-banner-btn')?.addEventListener('click', function () {
+    const banner = document.getElementById('cookie-consent-container');
+    if (banner) {
+      banner.style.display = 'block';
+      banner.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
+<style>
+  .privacy-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    background-color: #ffffff;
+  }
+
+  .privacy-date {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+  }
+
+  .privacy-section {
+    margin-bottom: 2.25rem;
+  }
+
+  .privacy-section h2 {
+    font-size: 1.35rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .privacy-section p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .privacy-section ul {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+
+  .privacy-section li {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .cookie-types-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-types-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .cookie-type-box {
+    background-color: var(--color-bg-body);
+    border: 1px solid var(--color-border);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+  }
+
+  .cookie-type-box h3 {
+    font-size: 1.05rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .cookie-type-box p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+</style>

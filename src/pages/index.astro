@@ -1,0 +1,641 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TreatmentCard from '../components/TreatmentCard.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { clinicConfig } from '../config/clinic.config';
+
+const homeFaqs = [
+  {
+    question: 'Como faço para agendar minha avaliação odontológica?',
+    answer: 'Você pode solicitar atendimento diretamente pelo nosso WhatsApp (11 98811-9693) ou ligando para (11) 2553-7002. Nossa equipe responderá em horário comercial para encontrar o melhor horário para você.',
+  },
+  {
+    question: 'Qual é o endereço da clínica em Guaianases?',
+    answer: 'Estamos localizados na Rua Hipólito de Camargo, 65 - Vila Minerva / Guaianases, São Paulo - SP, CEP 08410-030. Ficamos a poucos metros do comércio central de Guaianases, próximos ao Supermercado Semar e com fácil acesso a partir da estação de trem da CPTM.',
+  },
+  {
+    question: 'Quais tratamentos são realizados no consultório?',
+    answer: 'Oferecemos Clínica Geral (limpezas, profilaxias, restaurações e alívio de dor), Ortodontia (aparelhos fixos e alinhamento dental), Odontologia Estética (clareamento dental e restaurações estéticas) e Cirurgia Dentista (extrações dentárias e procedimentos cirúrgicos bucais ambulatoriais).',
+  },
+  {
+    question: 'A clínica aceita convênios odontológicos?',
+    answer: 'Atualmente trabalhamos prioritariamente com atendimento particular e fornecemos documentação/recibos para solicitação de reembolso. Para verificar possíveis parcerias ou tirar dúvidas específicas sobre condições, entre em contato pelo nosso WhatsApp.',
+  },
+  {
+    question: 'Como funciona a primeira consulta?',
+    answer: 'Na primeira visita, a Dra. Kelen realiza uma conversa para entender suas necessidades e histórico de saúde, seguida de exame clínico minucioso da cavidade bucal. Apresentamos um plano transparente com as prioridades de tratamento, sem procedimentos desnecessários.',
+  },
+];
+---
+
+<Layout
+  title="Dra. Kelen Carla Fernandez Rocha | Dentista em Guaianases - SP"
+  description="Clínica Odontológica da Dra. Kelen em Guaianases, Zona Leste de SP (CROSP 118603). Ortodontia, Estética, Cirurgia Bucal e Clínica Geral. Agendamento pelo WhatsApp."
+  canonicalPath="/"
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <div class="badge-group">
+          <span class="badge">Atendimento Odontológico em Guaianases</span>
+          <span class="badge cro-badge-hero">{clinicConfig.cro}</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Cuidado odontológico acolhedor e de confiança para o seu sorriso
+        </h1>
+        
+        <p class="hero-description">
+          Com a <strong>{clinicConfig.name}</strong>, você encontra atendimento ético e transparente na Zona Leste de São Paulo. Tratamentos em Clínica Geral, Ortodontia, Odontologia Estética e Cirurgia Dentista com foco no bem-estar de toda a família.
+        </p>
+
+        <div class="hero-actions">
+          <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp hero-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.301-.15-1.776-.876-2.052-.976-.275-.1-.476-.15-.676.15s-.777.976-.952 1.176-.35.226-.651.075c-.301-.15-1.27-.468-2.42-1.493-.894-.798-1.498-1.784-1.674-2.085-.175-.301-.019-.464.132-.614.136-.134.301-.35.452-.525.15-.175.2-.3.301-.501.101-.2.051-.375-.025-.526-.076-.15-.676-1.63-.927-2.233-.244-.588-.492-.508-.676-.517-.175-.009-.375-.011-.576-.011-.201 0-.527.075-.802.375-.276.301-1.053 1.028-1.053 2.507 0 1.479 1.078 2.907 1.228 3.108.15.201 2.122 3.24 5.141 4.543.718.31 1.278.495 1.716.634.721.229 1.377.197 1.896.119.578-.087 1.776-.726 2.026-1.428.251-.702.251-1.303.176-1.428-.075-.125-.276-.2-.577-.35z"/></svg>
+            <span>Agendar pelo WhatsApp</span>
+          </a>
+          
+          <a href={`tel:${clinicConfig.contact.phonePrimary}`} class="btn btn-secondary hero-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>Ligar: {clinicConfig.contact.phonePrimaryFormatted}</span>
+          </a>
+        </div>
+
+        <div class="hero-trust-badges">
+          <div class="trust-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span>Responsável Técnica CROSP 118603</span>
+          </div>
+          <div class="trust-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Rua Hipólito de Camargo, 65 - Guaianases</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recepção e identidade visual da clínica -->
+      <div class="hero-image-wrapper">
+        <div class="image-frame">
+          <img
+            src={clinicConfig.images.heroDentist}
+            alt="Recepção moderna e acolhedora da clínica da Dra. Kelen Carla Fernandez Rocha em Guaianases"
+            width="800"
+            height="450"
+            loading="eager"
+            class="hero-dentist-img"
+          />
+          <div class="image-caption">
+            <strong>Recepção e atendimento:</strong> R. Hipólito de Camargo, 65 - Guaianases (SP) • CROSP 118603.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Tratamentos Oferecidos -->
+  <section class="section section-alt" id="tratamentos" aria-labelledby="tratamentos-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Especialidades Confirmadas</span>
+        <h2 id="tratamentos-heading">Tratamentos Odontológicos Efetivamente Oferecidos</h2>
+        <p>
+          Diagnóstico criterioso, tecnologia adequada e respeito biológico para preservar e restaurar a sua saúde bucal.
+        </p>
+      </div>
+
+      <div class="grid-cards">
+        {clinicConfig.treatments.map((treatment) => (
+          <TreatmentCard treatment={treatment} />
+        ))}
+      </div>
+
+      <div class="treatments-footer-cta">
+        <p>Não sabe qual procedimento é o mais indicado para o seu caso?</p>
+        <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          Solicitar orientação de avaliação no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona o primeiro atendimento -->
+  <section class="section" aria-labelledby="primeiro-atendimento-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Acolhimento & Transparência</span>
+        <h2 id="primeiro-atendimento-heading">Como Funciona a Sua Primeira Consulta</h2>
+        <p>
+          Entendemos que ir ao dentista gera expectativas e dúvidas. Veja como estruturamos seu atendimento com tranquilidade:
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Conversa e Escuta Atenta</h3>
+          <p class="step-text">
+            Ouvimos com calma suas necessidades, histórico de saúde e eventuais desconfortos, sem julgamentos e em ambiente seguro.
+          </p>
+        </div>
+
+        <div class="step-card card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Exame Clínico Cuidadoso</h3>
+          <p class="step-text">
+            A Dra. Kelen avalia a saúde de dentes, gengivas e estruturas bucais para identificar com precisão o que precisa de atenção.
+          </p>
+        </div>
+
+        <div class="step-card card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Planejamento Transparente</h3>
+          <p class="step-text">
+            Explicamos detalhadamente as etapas necessárias, tiramos todas as suas dúvidas e você decide com clareza e autonomia.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conheça a Responsável Técnica -->
+  <section class="section section-alt" aria-labelledby="dentista-heading">
+    <div class="container">
+      <div class="profile-box card">
+        <div class="profile-info">
+          <span class="badge">Dentista Responsável</span>
+          <h2 id="dentista-heading" class="profile-name">{clinicConfig.name}</h2>
+          <p class="profile-cro">Cirurgiã-Dentista • <strong>{clinicConfig.cro}</strong></p>
+          
+          <div class="profile-bio">
+            <p>
+              Atuando na região de Guaianases e Zona Leste, a <strong>Dra. Kelen Carla Fernandez Rocha</strong> preza pelo atendimento próximo, escuta atenta e conduta clínica responsável.
+            </p>
+            <p>
+              Todos os procedimentos seguem rigorosos protocolos de biossegurança, esterilização e respeito aos preceitos éticos estabelecidos pelo Conselho Federal de Odontologia.
+            </p>
+          </div>
+
+          <div class="profile-actions">
+            <a href="/equipe" class="btn btn-primary">Conhecer qualificações da equipe</a>
+            <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              Falar com o consultório
+            </a>
+          </div>
+        </div>
+
+        <div class="profile-card-side">
+          <div class="cro-verification-card">
+            <div class="cro-seal-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h4>Registro Profissional Verificado</h4>
+            <p>Inscrição ativa no Conselho Regional de Odontologia de São Paulo:</p>
+            <span class="cro-highlight-number">CROSP 118603</span>
+            <small class="cro-note">Atuação técnica ética em conformidade com o CFO</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização Física & Mapa Real -->
+  <section class="section" id="localizacao" aria-labelledby="localizacao-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Fácil Acesso em Guaianases</span>
+        <h2 id="localizacao-heading">Onde Estamos e Como Chegar</h2>
+        <p>
+          Localização central na Vila Minerva / Guaianases para você cuidar do seu sorriso sem complicações.
+        </p>
+      </div>
+
+      <div class="location-grid">
+        <div class="location-details card">
+          <h3 class="location-place-title">{clinicConfig.name}</h3>
+          
+          <div class="location-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <div>
+              <strong>Endereço:</strong><br />
+              {clinicConfig.address.fullFormatted}
+            </div>
+          </div>
+
+          <div class="location-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <div>
+              <strong>Horário de Atendimento Confirmado:</strong><br />
+              {clinicConfig.hours.displayWeekdays}<br />
+              {clinicConfig.hours.displaySaturday}<br />
+              <span style="color: #64748b;">Domingos e feriados: Fechado</span>
+            </div>
+          </div>
+
+          <div class="location-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <div>
+              <strong>Telefones:</strong><br />
+              {clinicConfig.contact.phonePrimaryFormatted} / {clinicConfig.contact.phoneSecondaryFormatted}<br />
+              WhatsApp: {clinicConfig.contact.whatsappFormatted}
+            </div>
+          </div>
+
+          <div class="location-cta-box">
+            <a href={clinicConfig.address.mapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              <span>Abrir Rota no Google Maps</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="location-map-wrapper">
+          <div class="map-iframe-container">
+            <iframe
+              src={clinicConfig.address.mapsEmbedUrl}
+              width="100%"
+              height="400"
+              style="border:0; border-radius: var(--radius-lg);"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Localização da clínica no Google Maps"
+            ></iframe>
+          </div>
+          <p class="map-helper">
+            📍 <em>Endereço:</em> Rua Hipólito de Camargo, 65 - Guaianases (SP). Próximo à estação da CPTM e Semar Supermercados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Perguntas Frequentes -->
+  <section class="section section-alt" aria-labelledby="faq-home-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Tire Suas Dúvidas</span>
+        <h2 id="faq-home-heading">Perguntas Frequentes sobre os Atendimentos</h2>
+        <p>
+          Respostas diretas para as principais perguntas antes de agendar sua avaliação.
+        </p>
+      </div>
+
+      <FaqAccordion faqs={homeFaqs} sectionTitle="" />
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="final-cta-section">
+    <div class="container final-cta-container">
+      <h2>Pronto para cuidar do seu sorriso com tranquilidade?</h2>
+      <p>
+        Entre em contato pelo WhatsApp e solicite um horário de avaliação com a Dra. Kelen Carla Fernandez Rocha em Guaianases.
+      </p>
+      <div class="final-cta-buttons">
+        <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp final-wa-btn">
+          <span>Solicitar Atendimento pelo WhatsApp</span>
+        </a>
+        <a href="/contato" class="btn btn-secondary">
+          <span>Ver Página de Contato Completa</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(180deg, #f0fdfa 0%, #f8fafc 100%);
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero-container {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+    }
+  }
+
+  .badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cro-badge-hero {
+    background-color: #0f766e;
+    color: #ffffff;
+  }
+
+  .hero-title {
+    color: var(--color-primary-dark);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-btn {
+    font-size: 1.05rem;
+    padding: 0.85rem 1.75rem;
+  }
+
+  .hero-trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  }
+
+  .trust-pill svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .hero-image-wrapper {
+    position: relative;
+  }
+
+  .image-frame {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero-dentist-img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .image-caption {
+    padding: 0.85rem 1rem;
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    background-color: #ffffff;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Seção Tratamentos */
+  .treatments-footer-cta {
+    margin-top: 3rem;
+    text-align: center;
+    background-color: var(--color-primary-light);
+    border: 1px solid rgba(13, 148, 136, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.5rem;
+  }
+
+  .treatments-footer-cta p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+  }
+
+  /* Steps */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .step-card {
+    position: relative;
+    padding-top: 2.5rem;
+  }
+
+  .step-number {
+    position: absolute;
+    top: -16px;
+    left: 1.5rem;
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .step-text {
+    font-size: 0.95rem;
+  }
+
+  /* Profile Box */
+  .profile-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.5rem;
+  }
+
+  @media (min-width: 850px) {
+    .profile-box {
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+    }
+  }
+
+  .profile-name {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .profile-cro {
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+  }
+
+  .profile-bio p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .cro-verification-card {
+    background-color: var(--color-primary-light);
+    border: 2px solid rgba(13, 148, 136, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    text-align: center;
+  }
+
+  .cro-seal-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cro-highlight-number {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    margin: 0.75rem 0;
+    letter-spacing: 0.03em;
+  }
+
+  .cro-note {
+    display: block;
+    color: var(--color-text-light);
+    font-size: 0.8rem;
+  }
+
+  /* Localização */
+  .location-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 800px) {
+    .location-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .location-place-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    color: var(--color-primary-dark);
+  }
+
+  .location-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .location-item svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .location-cta-box {
+    margin-top: 1.5rem;
+  }
+
+  .map-iframe-container {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background-color: #f1f5f9;
+    min-height: 400px;
+  }
+
+  .map-iframe-container iframe {
+    width: 100%;
+    height: 400px;
+    display: block;
+  }
+
+  .map-helper {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 0.5rem;
+  }
+
+  /* CTA Final */
+  .final-cta-section {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .final-cta-container {
+    max-width: 760px;
+  }
+
+  .final-cta-container h2 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .final-cta-container p {
+    color: #ccfbf1;
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+  }
+
+  .final-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .final-wa-btn {
+    padding: 0.9rem 2rem;
+    font-size: 1.05rem;
+  }
+</style>

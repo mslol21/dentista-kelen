@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinicConfig } from '../config/clinic.config';
+---
+
+<Layout
+  title="Página Não Encontrada (404) | Dra. Kelen Odontologia"
+  description="A página que você procurou não foi encontrada. Navegue pelos links principais do consultório da Dra. Kelen em Guaianases."
+  canonicalPath="/404"
+  noindex={true}
+>
+  <div class="container section">
+    <div class="not-found-card card">
+      <span class="error-code">404</span>
+      <h1>Página Não Encontrada</h1>
+      <p class="error-desc">
+        O endereço que você tentou acessar não existe ou foi alterado. Use os links abaixo para encontrar as informações desejadas sobre a clínica:
+      </p>
+
+      <div class="helpful-links-grid">
+        <a href="/" class="helpful-link-card">
+          <strong>Página Inicial</strong>
+          <span>Apresentação geral da clínica e contato rápido</span>
+        </a>
+        <a href="/tratamentos" class="helpful-link-card">
+          <strong>Tratamentos Odontológicos</strong>
+          <span>Ortodontia, estética, cirurgia e clínica geral</span>
+        </a>
+        <a href="/a-clinica" class="helpful-link-card">
+          <strong>A Clínica em Guaianases</strong>
+          <span>Localização física e horários de atendimento</span>
+        </a>
+        <a href="/contato" class="helpful-link-card">
+          <strong>Falar com a Equipe</strong>
+          <span>WhatsApp, telefone e mapa de rotas</span>
+        </a>
+      </div>
+
+      <div class="wa-action-box">
+        <p>Precisa de auxílio imediato?</p>
+        <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          Falar pelo WhatsApp da Clínica
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .not-found-card {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3.5rem 2rem;
+    background-color: #ffffff;
+  }
+
+  .error-code {
+    display: inline-block;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .not-found-card h1 {
+    font-size: 1.8rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+  }
+
+  .error-desc {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 580px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .helpful-links-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .helpful-links-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .helpful-link-card {
+    padding: 1.25rem;
+    background-color: var(--color-bg-body);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .helpful-link-card:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-light);
+  }
+
+  .helpful-link-card strong {
+    color: var(--color-primary-dark);
+    font-size: 1.05rem;
+  }
+
+  .helpful-link-card span {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+  }
+
+  .wa-action-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .wa-action-box p {
+    margin: 0;
+    color: #14532d;
+    font-weight: 600;
+  }
+</style>

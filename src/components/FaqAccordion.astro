@@ -1,0 +1,99 @@
+---
+interface Props {
+  faqs: { question: string; answer: string }[];
+  sectionTitle?: string;
+}
+
+const { faqs, sectionTitle = 'Perguntas Frequentes' } = Astro.props;
+---
+
+<section class="faq-section" aria-labelledby="faq-heading">
+  {sectionTitle && <h2 id="faq-heading" class="faq-main-heading">{sectionTitle}</h2>}
+  <div class="faq-list">
+    {faqs.map((faq, idx) => (
+      <details class="faq-item" open={idx === 0}>
+        <summary class="faq-question">
+          <span>{faq.question}</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="faq-answer">
+          <p>{faq.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    width: 100%;
+  }
+
+  .faq-main-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-primary);
+  }
+
+  .faq-question {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--color-primary);
+    transition: transform 0.2s ease;
+    line-height: 1;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 1.5rem 1.25rem 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+  }
+
+  .faq-answer p {
+    margin: 0;
+  }
+</style>

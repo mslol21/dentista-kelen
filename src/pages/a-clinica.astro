@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinicConfig } from '../config/clinic.config';
+
+const breadcrumbs = [
+  { name: 'A Clínica', url: '/a-clinica' },
+];
+---
+
+<Layout
+  title="A Clínica | Dra. Kelen Odontologia em Guaianases - SP"
+  description="Conheça o consultório odontológico da Dra. Kelen Carla Fernandez Rocha em Guaianases. Atendimento humanizado, biossegurança e localização acessível."
+  canonicalPath="/a-clinica"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="container section">
+    <div class="page-header">
+      <span class="badge">Estrutura & Acolhimento</span>
+      <h1>A Clínica Odontológica em Guaianases</h1>
+      <p class="page-lead">
+        Um espaço dedicado à promoção da saúde bucal com respeito, tranquilidade e cuidado em cada etapa do atendimento.
+      </p>
+    </div>
+
+    <!-- Seção de Apresentação e Fachada Real -->
+    <div class="about-grid">
+      <div class="about-content">
+        <h2>Compromisso com o Bem-Estar do Paciente</h2>
+        <p>
+          O consultório da <strong>{clinicConfig.name}</strong> (CROSP 118603) foi estruturado para proporcionar aos moradores de Guaianases e região um atendimento odontológico que une técnica apurada e proximidade humana.
+        </p>
+        <p>
+          Acreditamos que uma experiência odontológica positiva começa com a escuta cuidadosa. Aqui, cada plano de tratamento é individualizado, explicando claramente os diagnósticos, as opções clínicas e os cuidados necessários.
+        </p>
+        
+        <h3>Nossos Pilares de Atendimento</h3>
+        <ul class="pillars-list">
+          <li>
+            <strong>Biossegurança e Esterilização:</strong> Protocolos rigorosos de higienização, esterilização em autoclave e materiais descartáveis para total proteção à sua saúde.
+          </li>
+          <li>
+            <strong>Conduta Ética (CFO):</strong> Avaliações transparentes sem indicação de procedimentos desnecessários ou falsas promessas de resultados imediatos.
+          </li>
+          <li>
+            <strong>Atendimento Humanizado:</strong> Cuidado especial com pacientes que sentem ansiedade ou medo de ir ao dentista, com explicações em linguagem clara e ritmo confortável.
+          </li>
+          <li>
+            <strong>Pontualidade e Respeito ao Seu Tempo:</strong> Horários agendados de forma organizada para evitar esperas prolongadas.
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-sidebar">
+        <div class="card photo-card">
+          <img
+            src={clinicConfig.images.heroDentist}
+            alt="Ambiente acolhedor e atendimento odontológico na clínica da Dra. Kelen em Guaianases"
+            width="600"
+            height="450"
+            class="about-img"
+          />
+          <div class="photo-info">
+            <h4>Ambiente Dedicado ao Paciente</h4>
+            <p>Rua Hipólito de Camargo, 65 - Guaianases, São Paulo/SP.</p>
+            <small class="photo-notice">
+              ✓ Atendimento humanizado, equipamentos modernos e biossegurança.
+            </small>
+          </div>
+        </div>
+
+        <div class="card hours-card">
+          <h3>Horários de Atendimento</h3>
+          <p><strong>Segunda a Sexta:</strong> 09:00 às 18:30</p>
+          <p><strong>Sábado:</strong> 09:00 às 17:00</p>
+          <p style="color: #64748b;"><strong>Domingo:</strong> Fechado</p>
+          <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="margin-top: 1rem; width: 100%;">
+            Consultar Disponibilidade de Horário
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registro de Transparência -->
+    <div class="audit-notice" style="margin-top: 3rem;">
+      <strong>Nota de Transparência Informativa:</strong> As fotos da fachada física e o endereço foram verificados no local. Para conhecer a infraestrutura interna do consultório e esterilização, nossa equipe está à disposição para recebê-lo presencialmente para uma avaliação.
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-header {
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .page-lead {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1.25fr 0.75fr;
+    }
+  }
+
+  .about-content h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+  }
+
+  .about-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+
+  .pillars-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .pillars-list li {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .pillars-list strong {
+    color: var(--color-primary-dark);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .photo-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .photo-info {
+    padding: 1.25rem;
+  }
+
+  .photo-info h4 {
+    margin-bottom: 0.35rem;
+  }
+
+  .photo-notice {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .hours-card {
+    background-color: var(--color-primary-light);
+    border-color: rgba(13, 148, 136, 0.3);
+  }
+
+  .hours-card h3 {
+    margin-bottom: 0.75rem;
+    color: var(--color-primary-dark);
+  }
+
+  .hours-card p {
+    margin-bottom: 0.4rem;
+  }
+</style>

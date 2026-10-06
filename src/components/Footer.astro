@@ -51,7 +51,9 @@ import { clinicConfig } from '../config/clinic.config';
           </p>
           <p>
             <strong>Telefones para agendamento:</strong><br />
-            <a href={`tel:${clinicConfig.contact.phonePrimary}`}>{clinicConfig.contact.phonePrimaryFormatted}</a> / 
+            {clinicConfig.contact.phonePrimaryUnit}:<br />
+            <a href={`tel:${clinicConfig.contact.phonePrimary}`}>{clinicConfig.contact.phonePrimaryFormatted}</a><br />
+            {clinicConfig.contact.phoneSecondaryUnit}:<br />
             <a href={`tel:${clinicConfig.contact.phoneSecondary}`}>{clinicConfig.contact.phoneSecondaryFormatted}</a><br />
             <strong>WhatsApp:</strong> <a href={clinicConfig.contact.whatsappUrl} target="_blank" rel="noopener noreferrer">{clinicConfig.contact.whatsappFormatted}</a>
           </p>

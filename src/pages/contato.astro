@@ -55,7 +55,9 @@ const breadcrumbs = [
               <div class="item-text">
                 <strong>Telefone Fixo / Recepção:</strong>
                 <div class="phone-links">
-                  <a href={`tel:${clinicConfig.contact.phonePrimary}`}>{clinicConfig.contact.phonePrimaryFormatted}</a> / 
+                  <span>{clinicConfig.contact.phonePrimaryUnit}</span><br />
+                  <a href={`tel:${clinicConfig.contact.phonePrimary}`}>{clinicConfig.contact.phonePrimaryFormatted}</a><br />
+                  <span>{clinicConfig.contact.phoneSecondaryUnit}</span><br />
                   <a href={`tel:${clinicConfig.contact.phoneSecondary}`}>{clinicConfig.contact.phoneSecondaryFormatted}</a>
                 </div>
                 <small>Atendimento por ligação em horário comercial</small>

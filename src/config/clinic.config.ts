@@ -51,8 +51,10 @@ export const clinicConfig = {
     whatsappUrl: 'https://wa.me/5511988119693?text=Ol%C3%A1%2C+gostaria+de+solicitar+informa%C3%A7%C3%B5es+sobre+atendimento+odontol%C3%B3gico+na+cl%C3%ADnica+da+Dra.+Kelen.',
     phonePrimary: '1125537002',
     phonePrimaryFormatted: '(11) 2553-7002',
-    phoneSecondary: '1125535395',
-    phoneSecondaryFormatted: '(11) 2553-5395',
+    phoneSecondary: '1125549178',
+    phoneSecondaryFormatted: '(11) 2554-9178',
+    phonePrimaryUnit: 'Rua Hipólito de Camargo, 65',
+    phoneSecondaryUnit: 'Rua Salvador Gianetti, 946',
     email: 'contato@drakelenodonto.com.br', // Configurável
   },
 

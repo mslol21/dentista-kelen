@@ -59,19 +59,19 @@ export const clinicConfig = {
   },
 
   hours: {
-    displayWeekdays: 'Segunda a Sexta: 09:00 às 18:30',
-    displaySaturday: 'Sábado: 09:00 às 17:00',
+    displayWeekdays: 'Segunda a Sexta: 09:00 às 19:00',
+    displaySaturday: 'Sábado: 09:00 às 16:00',
     displaySunday: 'Domingo: Fechado',
     openingHoursSpecification: [
       {
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         opens: '09:00',
-        closes: '18:30',
+        closes: '19:00',
       },
       {
         dayOfWeek: ['Saturday'],
         opens: '09:00',
-        closes: '17:00',
+        closes: '16:00',
       },
     ],
   },
